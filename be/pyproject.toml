@@ -1,0 +1,8 @@
+[project]
+name = "if4020-cipher-backend"
+version = "0.1"
+dependencies = [
+    "fastapi",
+    "uvicorn[standard]",
+]
+requires-python = ">= 3.8"
