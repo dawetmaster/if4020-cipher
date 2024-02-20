@@ -27,7 +27,7 @@ async def vigenere_encrypt(plaintext: str, key: str):
 
     ciphertext = ""
     for i in range(len(plaintext)):
-        ciphertext += (chr((ord(plaintext[i]) + ord(key[i]) - 2 * ord('a')) % 26 + ord('a'))).upper()
+        ciphertext += chr((ord(plaintext[i]) + ord(key[i]) - 2 * ord('a')) % 26 + ord('a'))
 
     return {
         "status": "success",
@@ -48,7 +48,7 @@ async def vigenere_decrypt(ciphertext: str, key: str):
 
     plaintext = ""
     for i in range(len(ciphertext)):
-        plaintext += (chr((ord(ciphertext[i]) - ord(key[i]) + 26) % 26 + ord('a'))).upper()
+        plaintext += chr((ord(ciphertext[i]) - ord(key[i]) + 26) % 26 + ord('a'))
 
     return {
         "status": "success",
