@@ -1,5 +1,7 @@
 from fastapi import APIRouter, File, UploadFile, Response
 
+from be.utils.extendedVigenere import extended_vigenere_decrypt, extended_vigenere_encrypt
+
 # Extende, key: strd Vigenere Cipher
 # Using 256 ASCII characters
 
@@ -16,18 +18,15 @@ async def extended_vigenere():
     return "Extended Vigenere Cipher API"
 
 @router.post("/encrypt")
-def extended_vigenere_encrypt(key: str, file: UploadFile = File(...)):
+def extended_vigenere_encrypt_router(key: str, file: UploadFile = File(...)):
     try:
         content = file.file.read()
         extension = file.filename.split('.')[-1]
+        encrypted_content = extended_vigenere_encrypt(content, key)
 
-        # encrypt per byte using key
-        for i in range(len(content)):
-            # if using bytes, it couldn't be added with int as byte range is 0-255 so use XOR
-            content = content[:i] + bytes([content[i] ^ ord(key[i % len(key)])]) + content[i+1:]
-
+        # TODO: store filename and extension
         return Response(
-            content,
+            encrypted_content,
             media_type="application/octet-stream",
             headers={"Content-Disposition": f'attachment; filename=encrypted.{extension}'}
         )
@@ -35,16 +34,13 @@ def extended_vigenere_encrypt(key: str, file: UploadFile = File(...)):
         return {"error": str(e)}
 
 @router.post("/decrypt")
-def extended_vigenere_decrypt(key: str, file: UploadFile = File(...)):
+def extended_vigenere_decrypt_router(key: str, file: UploadFile = File(...)):
     try:
         content = file.file.read()
         extension = file.filename.split('.')[-1]
+        decrypted_content = extended_vigenere_decrypt(content, key)
 
-        # encrypt per byte using key
-        for i in range(len(content)):
-            # if using bytes, it couldn't be added with int as byte range is 0-255 so use XOR
-            content = content[:i] + bytes([content[i] ^ ord(key[i % len(key)])]) + content[i+1:]
-
+        # TODO: store filename and extension
         return Response(
             content,
             media_type="application/octet-stream",

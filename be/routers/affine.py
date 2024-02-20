@@ -1,5 +1,7 @@
 from fastapi import APIRouter
 
+from be.utils.affine import affine_decrypt, affine_encrypt
+
 # Affine Cipher
 # Using 26 letters of the alphabet
 
@@ -14,48 +16,17 @@ async def affine():
     return "Affine Cipher API"
 
 @router.post("/encrypt")
-async def affine_encrypt(plaintext: str, m: int, b: int):
-    # make plaintext lowercase
-    plaintext = plaintext.lower()
-
-    # remove non-alphabet characters
-    plaintext = "".join(filter(str.isalpha, plaintext))
-
-    ciphertext = ""
-    for i in range(len(plaintext)):
-        ciphertext += chr((m * (ord(plaintext[i]) - ord('a')) + b) % 26 + ord('a'))
-
-        chr(m * (ord('k') - ord('a')))
-
+async def affine_encrypt_router(plaintext: str, m: int, b: int):
+    # TODO: add file upload option
     return {
         "status": "success",
-        "ciphertext": ciphertext
+        "ciphertext": affine_encrypt(plaintext, m, b)
     }
 
 @router.post("/decrypt")
-async def affine_decrypt(ciphertext: str, m: int, b: int):
-    # make ciphertext lowercase
-    ciphertext = ciphertext.lower()
-
-    # remove non-alphabet characters
-    ciphertext = "".join(filter(str.isalpha, ciphertext))
-
-    # find modular multiplicative inverse of m
-    i = 0
-    while (m * i) % 26 != 1:
-        i += 1
-        if i > 26:
-            return {
-                "status": "error",
-                "message": "Invalid m"
-            }
-    m = i
-
-    plaintext = ""
-    for i in range(len(ciphertext)):
-        plaintext += chr((m * (ord(ciphertext[i]) - ord('a') - b)) % 26 + ord('a'))
-
+async def affine_decrypt_router(ciphertext: str, m: int, b: int):
+    # TODO: add file upload option
     return {
         "status": "success",
-        "plaintext": plaintext
+        "plaintext": affine_decrypt(ciphertext, m, b)
     }
