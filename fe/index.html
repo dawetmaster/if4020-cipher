@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title>Classic Cipher Tool</title>
+    </head>
+    <body>
+        <h1>Classic Cipher Tool</h1>
+        <p>Choose a cipher to use:</p>
+        <form action="" method="post">
+          <!-- radio encrypt/decrypt -->
+          <div>
+            <input type="radio" name="action" value="encrypt">Encrypt
+            <input type="radio" name="action" value="decrypt">Decrypt
+          </div>
+          <!-- input type select -->
+          <div>
+            <select name="cipher">
+              <option value="vigenere">Vigenère Cipher</option>
+              <option value="affine">Affine Cipher</option>
+            </select>
+          </div>
+
+          <div>
+            Input type:
+            <input type="radio" name="action" value="encrypt">File
+            <input type="radio" name="action" value="decrypt">Text
+          </div>
+          <!-- plaintext -->
+          <div>
+            <textarea name="plaintext" id="plaintext" placeholder="Enter plaintext here"></textarea>
+          </div>
+    </body>
+</html>
