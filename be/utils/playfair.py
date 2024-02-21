@@ -131,10 +131,3 @@ def playfair_decrypt(ciphertext: str, key: str):
         decrypted_text += decrypted_chars
 
     return decrypted_text
-
-
-if __name__ == '__main__':
-    encrypted_key = playfair_encrypt("ACE OF BASx", "lemah ya kamu")
-    print(encrypted_key)
-    decrypted_key = playfair_decrypt(encrypted_key, "lemah ya kamu")
-    print(decrypted_key)
