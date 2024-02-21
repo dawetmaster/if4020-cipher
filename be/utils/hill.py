@@ -32,8 +32,8 @@ def __key_inv_matrix(matrix: np.array) -> np.array:
     # Multiplier: modular inverse of determinant
     determinant = round(np.linalg.det(matrix))
     multiplier = pow(determinant % 26, -1, 26)
-    adjoint = (np.linalg.inv(matrix) * determinant).astype(int)
-    return (multiplier * adjoint)
+    adjoint = (np.linalg.inv(matrix) * determinant).round()
+    return (multiplier * adjoint) % 26
 
 def __check_matrix_has_inverse(pseudomatrix: list) -> bool:
     # Check using numpy as the determinant is a float
@@ -106,7 +106,7 @@ def hill_decrypt(ciphertext: str, key: str) -> str:
         current_part = np.array(numeral_ciphertext[i:i+padding_size]) \
                         .reshape((padding_size, 1))
         decrypt_part = np.matmul(decrypt_key_matrix, current_part) % 26
-        decrypt_part = np.asarray(decrypt_part).reshape(padding_size).astype(int)
+        decrypt_part = np.asarray(decrypt_part).reshape(padding_size).round().astype(int)
         numeral_plaintext += decrypt_part.tolist()
     
     plaintext = "".join([__alphabetize_numerals(x) for x in numeral_plaintext])
@@ -114,7 +114,7 @@ def hill_decrypt(ciphertext: str, key: str) -> str:
 
 if __name__ == '__main__':
     key = "heru kntlx"
-    encrypted_key = hill_encrypt("ayo anakku", key)
+    encrypted_key = hill_encrypt("OK", key)
     print(encrypted_key)
     decrypted_key = hill_decrypt(encrypted_key, key)
     print(decrypted_key)
