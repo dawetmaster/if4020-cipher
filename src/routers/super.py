@@ -19,14 +19,12 @@ async def super_encryption():
 async def super_encryption_encrypt_router(key: str, col: int = 4, file: UploadFile = File(...)):
     try:
         content = file.file.read()
-        extension = file.filename.split('.')[-1]
-        encrypted_content = transpose.transpose_bytes(extended_vigenere_encrypt(content, key), col)
+        encrypted_content = transpose.transpose_bytes(extended_vigenere_encrypt(content, key, file.filename), col)
 
-        # TODO: store filename and extension
         return Response(
             encrypted_content,
             media_type="application/octet-stream",
-            headers={"Content-Disposition": f'attachment; filename=encrypted.{extension}'}
+            headers={"Content-Disposition": f'attachment; filename=encrypted.dat'}
         )
     except Exception as e:
         return {"error": str(e)}
@@ -35,14 +33,14 @@ async def super_encryption_encrypt_router(key: str, col: int = 4, file: UploadFi
 async def super_encryption_encrypt_router(key: str, col: int = 4, file: UploadFile = File(...)):
     try:
         content = file.file.read()
-        extension = file.filename.split('.')[-1]
-        encrypted_content = transpose.transpose_back_bytes(extended_vigenere_decrypt(content, key), col)
+        decrypted_content = transpose.transpose_back_bytes(extended_vigenere_decrypt(content, key), col)
 
-        # TODO: store filename and extension
+        filename = decrypted_content[:decrypted_content.index(b'\x00')].decode('utf-8')
+
         return Response(
-            encrypted_content,
+            decrypted_content,
             media_type="application/octet-stream",
-            headers={"Content-Disposition": f'attachment; filename=encrypted.{extension}'}
+            headers={"Content-Disposition": f'attachment; filename={filename}'}
         )
     except Exception as e:
         return {"error": str(e)}
