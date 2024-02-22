@@ -1,4 +1,5 @@
-from fastapi import APIRouter, UploadFile, File
+import json
+from fastapi import APIRouter, Request, UploadFile, File
 
 from src.utils.hill import hill_decrypt, hill_encrypt
 
@@ -16,7 +17,13 @@ async def hill():
     return "Hill Cipher API"
 
 @router.post("/encrypt")
-async def hill_encrypt_router(plaintext: str, key: str):
+async def hill_encrypt_router(request: Request):
+    # Get request details
+    body = await request.body()
+    decoded_body = json.loads(body.decode('utf-8'))
+    plaintext = decoded_body['plaintext']
+    key = decoded_body['key']
+
     return {
         "status": "success",
         "ciphertext": hill_encrypt(plaintext, key)
@@ -39,7 +46,13 @@ async def hill_encrypt_router_file(key: str, file: UploadFile = File(...)):
     }
 
 @router.post("/decrypt")
-async def hill_decrypt_router(ciphertext: str, key: str):
+async def hill_decrypt_router(request: Request):
+    # Get request details
+    body = await request.body()
+    decoded_body = json.loads(body.decode('utf-8'))
+    ciphertext = decoded_body['ciphertext']
+    key = decoded_body['key']
+
     return {
         "status": "success",
         "plaintext": hill_decrypt(ciphertext, key)

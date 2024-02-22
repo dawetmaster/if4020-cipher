@@ -53,7 +53,13 @@ async def vigenere_encrypt_router_file(key: str, file: UploadFile = File(...)):
     }
 
 @router.post("/decrypt")
-async def vigenere_decrypt_router(ciphertext: str, key: str):
+async def vigenere_decrypt_router(request: Request):
+    # Get request details
+    body = await request.body()
+    decoded_body = json.loads(body.decode('utf-8'))
+    ciphertext = decoded_body['ciphertext']
+    key = decoded_body['key']
+
     return {
         "status": "success",
         "plaintext": vigenere_decrypt(ciphertext, key)

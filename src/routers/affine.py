@@ -1,4 +1,5 @@
-from fastapi import APIRouter, UploadFile, File
+import json
+from fastapi import APIRouter, Request, UploadFile, File
 
 from src.utils.affine import affine_decrypt, affine_encrypt
 
@@ -16,7 +17,13 @@ async def affine():
     return "Affine Cipher API"
 
 @router.post("/encrypt")
-async def affine_encrypt_router(plaintext: str, m: int, b: int):
+async def affine_encrypt_router(request: Request):
+    # Get request details
+    body = await request.body()
+    decoded_body = json.loads(body.decode('utf-8'))
+    plaintext = decoded_body['plaintext']
+    key = decoded_body['key']
+
     return {
         "status": "success",
         "ciphertext": affine_encrypt(plaintext, m, b)
@@ -38,7 +45,13 @@ async def affine_encrypt_router_file(m: int, b: int, file: UploadFile = File(...
     }
 
 @router.post("/decrypt")
-async def affine_decrypt_router(ciphertext: str, m: int, b: int):
+async def affine_decrypt_router(request: Request):
+    # Get request details
+    body = await request.body()
+    decoded_body = json.loads(body.decode('utf-8'))
+    ciphertext = decoded_body['ciphertext']
+    key = decoded_body['key']
+
     return {
         "status": "success",
         "plaintext": affine_decrypt(ciphertext, m, b)
