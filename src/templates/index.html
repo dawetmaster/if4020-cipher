@@ -5,34 +5,36 @@
       </head>
       <body>
         <h1>Classic Cipher Tool</h1>
-        <p>Choose a cipher to use:</p>
         <form action="" method="post">
           <!-- radio encrypt/decrypt -->
           <div>
             <fieldset id="enctype">
               <legend>Choose whether to encrypt or to decrypt</legend>
-              <input type="radio" name="action" value="encrypt">Encrypt
-              <input type="radio" name="action" value="decrypt">Decrypt
+              <input type="radio" name="enctype" value="encrypt">Encrypt
+              <input type="radio" name="enctype" value="decrypt">Decrypt
             </fieldset>
           </div>
           <!-- input type select -->
           <div>
+            <p>Select your cipher type</p>
             <select name="cipher">
               <option value="vigenere">Vigenère Cipher</option>
               <option value="affine">Affine Cipher</option>
             </select>
           </div>
-
           <div>
             <fieldset id="inputtype">
               <legend>Input type:</legend>
-              <input type="radio" name="action" value="file">File
-              <input type="radio" name="action" value="text">Text
+              <input type="radio" name="inputtype" value="file">File
+              <input type="radio" name="inputtype" value="text">Text
             </fieldset>
           </div>
           <!-- plaintext -->
           <div>
             <textarea name="plaintext" id="plaintext" placeholder="Enter plaintext here"></textarea>
+            <textarea name="plaintext" id="key" placeholder="Enter key here"></textarea>
           </div>
+          <!-- Submit button -->
+          <input type="submit" formaction="/vigenere" value="Submit" />
     </body>
 </html>
