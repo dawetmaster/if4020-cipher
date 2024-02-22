@@ -21,9 +21,6 @@ def vigenere_decrypt(ciphertext: str, key: str) -> str:
     ciphertext = ciphertext.lower()
     key = key.lower()
 
-    # remove non-alphabet characters
-    ciphertext = "".join(filter(str.isalpha, ciphertext)) # are you sure, making variable plaintext?
-
     # repeat key
     key = key * (len(ciphertext) // len(key)) + key[:len(ciphertext) % len(key)]
 
