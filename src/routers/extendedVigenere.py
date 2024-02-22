@@ -33,7 +33,9 @@ def extended_vigenere_encrypt_router(key: str, file: UploadFile = File(...)):
 def extended_vigenere_decrypt_router(key: str, file: UploadFile = File(...)):
     try:
         content = file.file.read()
-        decrypted_content, filename = extended_vigenere_decrypt(content, key)
+        decrypted_content = extended_vigenere_decrypt(content, key)
+
+        filename = decrypted_content[:decrypted_content.index(b'\x00')].decode('utf-8')
 
         return Response(
             decrypted_content,
