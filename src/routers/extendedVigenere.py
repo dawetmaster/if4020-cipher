@@ -1,6 +1,6 @@
 from fastapi import APIRouter, File, UploadFile, Response
 
-from be.utils.extendedVigenere import extended_vigenere_decrypt, extended_vigenere_encrypt
+from src.utils.extendedVigenere import extended_vigenere_decrypt, extended_vigenere_encrypt
 
 # Extende, key: strd Vigenere Cipher
 # Using 256 ASCII characters

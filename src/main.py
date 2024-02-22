@@ -2,11 +2,11 @@ from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
-from be.routers import affine, extendedVigenere, super, vigenere
+from src.routers import affine, extendedVigenere, super, vigenere
 
 app = FastAPI()
 
-templates = Jinja2Templates(directory="be/templates")
+templates = Jinja2Templates(directory="src/templates")
 
 app.include_router(affine.router)
 app.include_router(extendedVigenere.router)

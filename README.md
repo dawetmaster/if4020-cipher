@@ -17,7 +17,7 @@ Repositori ini dibuat untuk memenuhi *Tugas 1 IF4020 Kriptografi* pada tahun aja
     ```
 2. Jalankan *web app* dengan menjalankan perintah berikut dari root folder
     ```bash
-    uvicorn be.main:app --reload
+    uvicorn src.main:app --reload
     ```
 3. Buka *web browser* dan akses `http://localhost:8000/`.
 

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, UploadFile, File
 
-from be.utils.hill import hill_decrypt, hill_encrypt
+from src.utils.hill import hill_decrypt, hill_encrypt
 
 # Standard hill Cipher
 # Using 26 letters of the alphabet

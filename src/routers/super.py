@@ -1,7 +1,7 @@
 from fastapi import APIRouter, File, Response, UploadFile
-from be.utils import transpose
+from src.utils import transpose
 
-from be.utils.extendedVigenere import extended_vigenere_decrypt, extended_vigenere_encrypt
+from src.utils.extendedVigenere import extended_vigenere_decrypt, extended_vigenere_encrypt
 
 # Super Encryption Cipher
 

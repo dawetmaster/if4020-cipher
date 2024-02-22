@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from be.utils.playfair import playfair_decrypt, playfair_encrypt
+from src.utils.playfair import playfair_decrypt, playfair_encrypt
 
 # Playfair Cipher
 # Using 26 letters of the alphabet

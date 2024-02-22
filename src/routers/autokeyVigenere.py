@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from be.utils.autokeyVigenere import autokey_vigenere_decrypt, autokey_vigenere_encrypt
+from src.utils.autokeyVigenere import autokey_vigenere_decrypt, autokey_vigenere_encrypt
 
 # Standard Vigenere Cipher
 # Using 26 letters of the alphabet

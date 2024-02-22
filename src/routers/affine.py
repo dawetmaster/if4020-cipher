@@ -1,36 +1,35 @@
 from fastapi import APIRouter, UploadFile, File
 
-from be.utils.vigenere import vigenere_decrypt, vigenere_encrypt
+from src.utils.affine import affine_decrypt, affine_encrypt
 
-# Standard Vigenere Cipher
+# Affine Cipher
 # Using 26 letters of the alphabet
 
 router = APIRouter(
-    prefix="/vigenere",
-    tags=["vigenere"],
+    prefix="/affine",
+    tags=["affine"],
     responses={404: {"description": "Not found"}},
 )
 
 @router.get("/")
-async def vigenere():
-    return "Vigenere Cipher API"
+async def affine():
+    return "Affine Cipher API"
 
 @router.post("/encrypt")
-async def vigenere_encrypt_router(plaintext: str, key: str):
+async def affine_encrypt_router(plaintext: str, m: int, b: int):
     return {
         "status": "success",
-        "ciphertext": vigenere_encrypt(plaintext, key)
+        "ciphertext": affine_encrypt(plaintext, m, b)
     }
 
-# TODO: find a way to handle optional file upload in FastAPI
 @router.post("/encryptfile")
-async def vigenere_encrypt_router_file(key: str, file: UploadFile = File(...)):
+async def affine_encrypt_router_file(m: int, b: int, file: UploadFile = File(...)):
   try:
     contents = await file.read()
     plaintext = contents.decode("utf-8")
     return {
         "status": "success",
-        "ciphertext": vigenere_encrypt(plaintext, key)
+        "ciphertext": affine_encrypt(plaintext, m, b)
     }
   except Exception as e:
     return {
@@ -39,20 +38,20 @@ async def vigenere_encrypt_router_file(key: str, file: UploadFile = File(...)):
     }
 
 @router.post("/decrypt")
-async def vigenere_decrypt_router(ciphertext: str, key: str):
+async def affine_decrypt_router(ciphertext: str, m: int, b: int):
     return {
         "status": "success",
-        "plaintext": vigenere_decrypt(ciphertext, key)
+        "plaintext": affine_decrypt(ciphertext, m, b)
     }
 
-@router.post("/decryptfile")
-async def vigenere_decrypt_router_file(key: str, file: UploadFile = File(...)):
+@router.post("/encryptfile")
+async def affine_decrypt_router_file(m: int, b: int, file: UploadFile = File(...)):
   try:
     contents = await file.read()
     ciphertext = contents.decode("utf-8")
     return {
         "status": "success",
-        "ciphertext": vigenere_decrypt(ciphertext, key)
+        "ciphertext": affine_decrypt(ciphertext, m, b)
     }
   except Exception as e:
     return {
