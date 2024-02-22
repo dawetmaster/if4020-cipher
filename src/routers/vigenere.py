@@ -15,7 +15,8 @@ router = APIRouter(
 @router.get("/")
 async def vigenere(request: Request):
    return Jinja2Templates(directory="src/templates").TemplateResponse("index.html", {
-      "ciphertype": "Vigenere",
+      "ciphertype_name": "Vigenere",
+      "ciphertype": "vigenere",
       "request": request
    })
 

@@ -4,9 +4,8 @@
         <link rel="stylesheet" href="{{ url_for('static', path='/style.css') }}">
       </head>
       <body>
-        <h1>{{ ciphertype }} Cipher</h1>
-        <form action="" method="post">
-          <!-- radio encrypt/decrypt -->
+        <h1>{{ ciphertype_name }} Cipher</h1>
+        <form action="/{{ ciphertype }}/encrypt" method="post" name="form">
           <div>
             <fieldset id="enctype">
               <legend>Choose whether to encrypt or to decrypt</legend>
