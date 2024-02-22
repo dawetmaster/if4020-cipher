@@ -4,8 +4,7 @@
         <link rel="stylesheet" href="{{ url_for('static', path='/style.css') }}">
       </head>
       <body>
-        <h1>Classic Cipher Tool</h1>
-        <p>Choose a cipher to use:</p>
+        <h1>{{ ciphertype }} Cipher</h1>
         <form action="" method="post">
           <!-- radio encrypt/decrypt -->
           <div>
@@ -14,13 +13,6 @@
               <input type="radio" name="action" value="encrypt">Encrypt
               <input type="radio" name="action" value="decrypt">Decrypt
             </fieldset>
-          </div>
-          <!-- input type select -->
-          <div>
-            <select name="cipher">
-              <option value="vigenere">Vigenère Cipher</option>
-              <option value="affine">Affine Cipher</option>
-            </select>
           </div>
 
           <div>
@@ -31,8 +23,25 @@
             </fieldset>
           </div>
           <!-- plaintext -->
-          <div>
+          <fieldset>
+            <legend>Enter plaintext here</legend>
             <textarea name="plaintext" id="plaintext" placeholder="Enter plaintext here"></textarea>
+          </fieldset>
+
+          <div>
+            <input type="submit" value="Submit">
           </div>
+        </form>
+
+        <div>
+          <fieldset>
+            <legend>Result</legend>
+            <textarea name="plaintext" id="plaintext" readonly></textarea>
+            <div>
+              <button>Copy</button>
+              <button>Save</button>
+            </div>
+          </fieldset>
+        </div>
     </body>
 </html>
