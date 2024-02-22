@@ -3,6 +3,8 @@ from fastapi.templating import Jinja2Templates
 
 from src.utils.vigenere import vigenere_decrypt, vigenere_encrypt
 
+import json
+
 # Standard Vigenere Cipher
 # Using 26 letters of the alphabet
 
@@ -21,7 +23,14 @@ async def vigenere(request: Request):
    })
 
 @router.post("/encrypt")
-async def vigenere_encrypt_router(plaintext: str, key: str):
+async def vigenere_encrypt_router(request: Request):
+    # Get request details
+    body = await request.body()
+    decoded_body = json.loads(body.decode('utf-8'))
+    plaintext = decoded_body['plaintext']
+    key = decoded_body['key']
+
+    # Return the request details as output
     return {
         "status": "success",
         "ciphertext": vigenere_encrypt(plaintext, key)

@@ -2,9 +2,25 @@
 let enctype = 'encrypt';
 let algorithm = 'vigenere';
 let inputtype = 'text';
+let submitURL = ''
+const form = document.getElementById('form');
+const resultDiv = document.getElementById('result');
 
 window.onload = () => {
     console.log("OK");
+}
+
+function setRequestToJSON() {
+    // Get form data
+    const formData = new FormData(form);
+
+    // Convert form data to JSON
+    const jsonData = {};
+    formData.forEach((value, key) => {
+        jsonData[key] = value;
+    });
+
+    return jsonData;
 }
 
 function setURL(algorithm, enctype, inputtype) {
@@ -22,8 +38,31 @@ function setURL(algorithm, enctype, inputtype) {
         url = `/${algorithm}/decryptfile`
     }
     document.getElementById("form").action = url;
+    submitURL = url
     console.log(url);
 }
+
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    let reqBody = setRequestToJSON();
+    console.log(submitURL);
+    console.log(JSON.stringify(reqBody));
+    fetch(`${submitURL}`, {
+        method: "POST",
+        headers: {
+            applicationType: "application/json",
+        },
+        body: JSON.stringify(reqBody)
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Display response in the result div
+        resultDiv.innerHTML = `${JSON.stringify(data, null, 2)}`;
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+})
 
 document.getElementById("encryptselect").addEventListener("click", () => {
     enctype = "encrypt";
