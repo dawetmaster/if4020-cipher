@@ -2,10 +2,12 @@
 let enctype = 'encrypt';
 let algorithm = 'vigenere';
 let inputtype = 'text';
-let submitURL = ''
+let submitURL = '';
 const form = document.getElementById('form');
 const resultDiv = document.getElementById('result');
-const base64Toggle = document.getElementById('base64toggle');
+const plaintext = document.getElementById('plaintext');
+const encodedBase64Toggle = document.getElementById('encoded_base64toggle');
+const decodedBase64Toggle = document.getElementById('decoded_base64toggle');
 
 window.onload = () => {
   console.log('OK');
@@ -87,9 +89,18 @@ document.getElementById('algoselect').addEventListener('change', () => {
   setURL(algorithm, enctype, inputtype);
 });
 
-base64Toggle.addEventListener('click', () => {
+encodedBase64Toggle.addEventListener('click', () => {
   // change input in resultDiv to
-  if (base64Toggle.checked) {
+  if (encodedBase64Toggle.checked) {
+    plaintext.value = btoa(plaintext.value);
+  } else {
+    plaintext.value = atob(plaintext.value);
+  }
+});
+
+decodedBase64Toggle.addEventListener('click', () => {
+  // change input in resultDiv to
+  if (decodedBase64Toggle.checked) {
     resultDiv.value = btoa(resultDiv.value);
   } else {
     resultDiv.value = atob(resultDiv.value);
