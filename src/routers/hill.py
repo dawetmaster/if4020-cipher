@@ -55,7 +55,11 @@ async def hill_decrypt_router(request: Request):
     # Get request details
     body = await request.body()
     decoded_body = json.loads(body.decode('utf-8'))
-    ciphertext = decoded_body['ciphertext']
+    base64_encoded = decoded_body.get('encoded_base64toggle')
+    if base64_encoded is not None and base64_encoded == "on":
+        plaintext = base64.b64decode(decoded_body['plaintext']).decode('utf-8')
+    else:
+        plaintext = decoded_body['plaintext']
     key = decoded_body['key']
 
     return {
