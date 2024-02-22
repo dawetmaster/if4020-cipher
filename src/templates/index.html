@@ -2,32 +2,44 @@
     <head>
         <title>Classic Cipher Tool</title>
         <link rel="stylesheet" href="{{ url_for('static', path='/style.css') }}">
+        <script src="/static/main.js" defer></script>
       </head>
       <body>
         <h1>{{ ciphertype_name }} Cipher</h1>
-        <form action="/{{ ciphertype }}/encrypt" method="post" name="form">
+        <form action="/{{ ciphertype }}/encrypt"  id="form" method="post" name="form">
           <div>
             <fieldset id="enctype">
               <legend>Choose whether to encrypt or to decrypt</legend>
-              <input type="radio" name="enctype" value="encrypt">Encrypt
-              <input type="radio" name="enctype" value="decrypt">Decrypt
+              <input type="radio" name="enctype" id="encryptselect" value="encrypt">Encrypt
+              <input type="radio" name="enctype" id="decryptselect" value="decrypt">Decrypt
             </fieldset>
           </div>
           <div>
             <fieldset id="inputtype">
               <legend>Input type:</legend>
-              <input type="radio" name="inputtype" value="file">File
-              <input type="radio" name="inputtype" value="text">Text
+              <input type="radio" name="inputtype" id="fileselect" value="file">File
+              <input type="radio" name="inputtype" id="textselect" value="text">Text
             </fieldset>
           </div>
+          <!-- chooser -->
+          <label for="algoselect">Choose an algorithm:</label>
+          <select id="algoselect" name="algoselect">
+            <option value="vigenere">Vigenere</option>
+            <option value="extended-vigenere">Extended Vigenere</option>
+          </select>
           <!-- plaintext -->
           <fieldset>
             <legend>Enter plaintext here</legend>
             <textarea name="plaintext" id="plaintext" placeholder="Enter plaintext here"></textarea>
           </fieldset>
+          <!-- key -->
+          <fieldset>
+            <legend>Enter key here</legend>
+            <textarea name="key" id="key" placeholder="Enter key here"></textarea>
+          </fieldset>
 
           <div>
-            <input type="submit" value="Submit">
+            <input id="submit" type="submit" value="Submit">
           </div>
         </form>
 
