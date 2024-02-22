@@ -16,22 +16,30 @@ window.onload = () => {
 function setRequestToJSON() {
   // Get form data
   const formData = new FormData(form);
-    console.log(document.getElementById('fileinput'))
-    const file = document.getElementById('fileinput').files[0];
-    console.log(file);
-    if (!file) {
-        resultDiv.textContent = 'No file selected';
-    }
-    else {
-        formData.append('file', file);
-        console.log("file appended");
-    }
-    
+  console.log(document.getElementById('fileinput'))
+  const file = document.getElementById('fileinput').files[0];
+  console.log(file);
+  
   // Convert form data to JSON
   const jsonData = {};
+  console.log(inputtype)
+  if (!file && inputtype === 'file') {
+    resultDiv.textContent = 'No file selected';
+  }
+  else if (file && inputtype === 'file'){
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    // When file reading is complete
+    reader.onload = function(event) {
+      var base64Data = event.target.result.split(',')[1]; // Extract base64 data
+      jsonData['file_data'] = base64Data
+    }
+    console.log("file appended");
+  }
   formData.forEach((value, key) => {
     jsonData[key] = value;
   });
+  console.log(jsonData);
 
   return jsonData;
 }
