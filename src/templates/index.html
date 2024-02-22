@@ -4,23 +4,14 @@
         <link rel="stylesheet" href="{{ url_for('static', path='/style.css') }}">
       </head>
       <body>
-        <h1>Classic Cipher Tool</h1>
-        <form action="" method="post">
-          <!-- radio encrypt/decrypt -->
+        <h1>{{ ciphertype_name }} Cipher</h1>
+        <form action="/{{ ciphertype }}/encrypt" method="post" name="form">
           <div>
             <fieldset id="enctype">
               <legend>Choose whether to encrypt or to decrypt</legend>
               <input type="radio" name="enctype" value="encrypt">Encrypt
               <input type="radio" name="enctype" value="decrypt">Decrypt
             </fieldset>
-          </div>
-          <!-- input type select -->
-          <div>
-            <p>Select your cipher type</p>
-            <select name="cipher">
-              <option value="vigenere">Vigenère Cipher</option>
-              <option value="affine">Affine Cipher</option>
-            </select>
           </div>
           <div>
             <fieldset id="inputtype">
@@ -30,11 +21,25 @@
             </fieldset>
           </div>
           <!-- plaintext -->
-          <div>
+          <fieldset>
+            <legend>Enter plaintext here</legend>
             <textarea name="plaintext" id="plaintext" placeholder="Enter plaintext here"></textarea>
-            <textarea name="plaintext" id="key" placeholder="Enter key here"></textarea>
+          </fieldset>
+
+          <div>
+            <input type="submit" value="Submit">
           </div>
-          <!-- Submit button -->
-          <input type="submit" formaction="/vigenere" value="Submit" />
+        </form>
+
+        <div>
+          <fieldset>
+            <legend>Result</legend>
+            <textarea name="plaintext" id="plaintext" readonly></textarea>
+            <div>
+              <button>Copy</button>
+              <button>Save</button>
+            </div>
+          </fieldset>
+        </div>
     </body>
 </html>

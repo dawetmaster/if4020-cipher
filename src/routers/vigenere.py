@@ -1,4 +1,5 @@
-from fastapi import APIRouter, UploadFile, File
+from fastapi import APIRouter, UploadFile, File, Request
+from fastapi.templating import Jinja2Templates
 
 from src.utils.vigenere import vigenere_decrypt, vigenere_encrypt
 
@@ -12,8 +13,12 @@ router = APIRouter(
 )
 
 @router.get("/")
-async def vigenere():
-    return "Vigenere Cipher API"
+async def vigenere(request: Request):
+   return Jinja2Templates(directory="src/templates").TemplateResponse("index.html", {
+      "ciphertype_name": "Vigenere",
+      "ciphertype": "vigenere",
+      "request": request
+   })
 
 @router.post("/encrypt")
 async def vigenere_encrypt_router(plaintext: str, key: str):
