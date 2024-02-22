@@ -9,8 +9,11 @@
         <form action="" method="post">
           <!-- radio encrypt/decrypt -->
           <div>
-            <input type="radio" name="action" value="encrypt">Encrypt
-            <input type="radio" name="action" value="decrypt">Decrypt
+            <fieldset id="enctype">
+              <legend>Choose whether to encrypt or to decrypt</legend>
+              <input type="radio" name="action" value="encrypt">Encrypt
+              <input type="radio" name="action" value="decrypt">Decrypt
+            </fieldset>
           </div>
           <!-- input type select -->
           <div>
@@ -21,9 +24,11 @@
           </div>
 
           <div>
-            Input type:
-            <input type="radio" name="action" value="encrypt">File
-            <input type="radio" name="action" value="decrypt">Text
+            <fieldset id="inputtype">
+              <legend>Input type:</legend>
+              <input type="radio" name="action" value="file">File
+              <input type="radio" name="action" value="text">Text
+            </fieldset>
           </div>
           <!-- plaintext -->
           <div>
