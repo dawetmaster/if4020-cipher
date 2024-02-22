@@ -13,7 +13,17 @@ window.onload = () => {
 function setRequestToJSON() {
     // Get form data
     const formData = new FormData(form);
-
+    console.log(document.getElementById('fileinput'))
+    const file = document.getElementById('fileinput').files[0];
+    console.log(file);
+    if (!file) {
+        resultDiv.textContent = 'No file selected';
+    }
+    else {
+        formData.append('file', file);
+        console.log("file appended");
+    }
+    
     // Convert form data to JSON
     const jsonData = {};
     formData.forEach((value, key) => {

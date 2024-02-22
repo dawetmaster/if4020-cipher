@@ -38,19 +38,37 @@ async def vigenere_encrypt_router(request: Request):
 
 # TODO: find a way to handle optional file upload in FastAPI
 @router.post("/encryptfile")
-async def vigenere_encrypt_router_file(key: str, file: UploadFile = File(...)):
-  try:
-    contents = await file.read()
-    plaintext = contents.decode("utf-8")
-    return {
-        "status": "success",
-        "ciphertext": vigenere_encrypt(plaintext, key)
-    }
-  except Exception as e:
-    return {
-        "status": "error",
-        "message": str(e)
-    }
+async def vigenere_encrypt_router_file(request: Request):
+    # Get request details
+    body = await request.body()
+    decoded_body = json.loads(body.decode('utf-8'))
+    return decoded_body
+    # try:
+    #     plaintext = decoded_body['fileinput'].decode('utf-8')
+    #     key = decoded_body['key']
+    #     return {
+    #         "status": "success",
+    #         "ciphertext": vigenere_encrypt(plaintext, key)
+    #     }
+    # except Exception as e:
+    #     return {
+    #         "status": "error",
+    #         "message": str(e)
+    #     }
+
+# async def vigenere_encrypt_router_file(key: str, file: UploadFile = File(...)):
+#   try:
+#     contents = await file.read()
+#     plaintext = contents.decode("utf-8")
+#     return {
+#         "status": "success",
+#         "ciphertext": vigenere_encrypt(plaintext, key)
+#     }
+#   except Exception as e:
+#     return {
+#         "status": "error",
+#         "message": str(e)
+#     }
 
 @router.post("/decrypt")
 async def vigenere_decrypt_router(request: Request):
