@@ -1,4 +1,5 @@
 import json
+import base64
 from fastapi import APIRouter, Request, UploadFile, File
 
 from src.utils.affine import affine_decrypt, affine_encrypt
@@ -21,8 +22,13 @@ async def affine_encrypt_router(request: Request):
     # Get request details
     body = await request.body()
     decoded_body = json.loads(body.decode('utf-8'))
-    plaintext = decoded_body['plaintext']
+    base64_encoded = decoded_body.get('encoded_base64toggle')
+    if base64_encoded is not None and base64_encoded == "on":
+        plaintext = base64.b64decode(decoded_body['plaintext']).decode('utf-8')
+    else:
+        plaintext = decoded_body['plaintext']
     key = decoded_body['key']
+    # Return the request details as output
 
     return {
         "status": "success",
