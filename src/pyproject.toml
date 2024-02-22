@@ -6,6 +6,7 @@ dependencies = [
     "uvicorn[standard]",
     "numpy",
     "python-multipart",
+    "jinja2"
 ]
 requires-python = ">= 3.8"
 
