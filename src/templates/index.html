@@ -31,6 +31,9 @@
           <fieldset>
             <legend>Enter plaintext here</legend>
             <textarea name="plaintext" id="plaintext" placeholder="Enter plaintext here"></textarea>
+            <div>
+              <input type="checkbox" id="encoded_base64toggle" name="encoded_base64toggle">Base64
+            </div>
           </fieldset>
           <!-- file -->
           <input type="file" id="fileinput">
@@ -48,10 +51,11 @@
         <div>
           <fieldset>
             <legend>Result</legend>
-            <textarea name="result" id="result" readonly></textarea>
+            <textarea name="result" id="result"></textarea>
             <div>
               <button>Copy</button>
               <button>Save</button>
+              <input type="checkbox" id="decoded_base64toggle" name="decoded_base64toggle">Base64
             </div>
           </fieldset>
         </div>
