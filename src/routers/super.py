@@ -15,7 +15,7 @@ router = APIRouter(
 async def super_encryption():
     return "Super Encryption Cipher API"
 
-@router.post("/encrypt")
+@router.post("/encryptfile")
 async def super_encryption_encrypt_router(key: str, col: int = 4, file: UploadFile = File(...)):
     try:
         content = file.file.read()
@@ -29,7 +29,7 @@ async def super_encryption_encrypt_router(key: str, col: int = 4, file: UploadFi
     except Exception as e:
         return {"error": str(e)}
 
-@router.post("/decrypt")
+@router.post("/decryptfile")
 async def super_encryption_encrypt_router(key: str, col: int = 4, file: UploadFile = File(...)):
     try:
         content = file.file.read()

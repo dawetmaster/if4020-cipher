@@ -15,7 +15,7 @@ router = APIRouter(
 async def extended_vigenere():
     return "Extended Vigenere Cipher API"
 
-@router.post("/encrypt")
+@router.post("/encryptfile")
 def extended_vigenere_encrypt_router(key: str, file: UploadFile = File(...)):
     try:
         content = file.file.read()
@@ -29,7 +29,7 @@ def extended_vigenere_encrypt_router(key: str, file: UploadFile = File(...)):
     except Exception as e:
         return {"error": str(e)}
 
-@router.post("/decrypt")
+@router.post("/decryptfile")
 def extended_vigenere_decrypt_router(key: str, file: UploadFile = File(...)):
     try:
         content = file.file.read()
